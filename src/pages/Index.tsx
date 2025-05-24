@@ -1,108 +1,40 @@
 
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, User, Settings, Menu } from "lucide-react";
+import { Home, User, Settings, Sources } from "lucide-react";
+import HomeScreen from '../components/screens/HomeScreen';
+import ProfileScreen from '../components/screens/ProfileScreen';
+import SettingsScreen from '../components/screens/SettingsScreen';
+import SourcesScreen from '../components/screens/SourcesScreen';
+import AddTransactionScreen from '../components/screens/AddTransactionScreen';
+import AddBillScreen from '../components/screens/AddBillScreen';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [currentScreen, setCurrentScreen] = useState('home');
 
   const renderContent = () => {
-    switch (activeTab) {
+    switch (currentScreen) {
       case 'home':
-        return (
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Welcome Home</CardTitle>
-                <CardDescription>Your mobile app is ready!</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">This is your home screen with mobile-optimized content.</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button className="w-full" variant="outline">
-                  Action 1
-                </Button>
-                <Button className="w-full" variant="outline">
-                  Action 2
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        );
+        return <HomeScreen onNavigate={setCurrentScreen} />;
       case 'profile':
-        return (
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Profile</CardTitle>
-                <CardDescription>Manage your account</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">John Doe</h3>
-                      <p className="text-sm text-gray-500">john.doe@example.com</p>
-                    </div>
-                  </div>
-                  <Button className="w-full">Edit Profile</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        );
+        return <ProfileScreen />;
       case 'settings':
-        return (
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Settings</CardTitle>
-                <CardDescription>App preferences</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center py-2">
-                  <span>Notifications</span>
-                  <Button variant="outline" size="sm">Toggle</Button>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span>Dark Mode</span>
-                  <Button variant="outline" size="sm">Toggle</Button>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span>Language</span>
-                  <Button variant="outline" size="sm">English</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        );
+        return <SettingsScreen />;
+      case 'sources':
+        return <SourcesScreen />;
+      case 'add-transaction':
+        return <AddTransactionScreen onNavigate={setCurrentScreen} />;
+      case 'add-bill':
+        return <AddBillScreen onNavigate={setCurrentScreen} />;
       default:
-        return null;
+        return <HomeScreen onNavigate={setCurrentScreen} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b px-4 py-3">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Mobile App</h1>
-          <Menu className="w-6 h-6 text-gray-600" />
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Content */}
-      <div className="flex-1 p-4 pb-20">
+      <div className="flex-1 pb-20">
         {renderContent()}
       </div>
 
@@ -110,27 +42,48 @@ const Index = () => {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
         <div className="flex">
           <button
-            onClick={() => setActiveTab('home')}
+            onClick={() => {
+              setActiveTab('home');
+              setCurrentScreen('home');
+            }}
             className={`flex-1 py-3 px-4 flex flex-col items-center space-y-1 ${
-              activeTab === 'home' ? 'text-blue-600' : 'text-gray-500'
+              activeTab === 'home' ? 'bg-[#27AE60] text-white' : 'text-[#6B7280]'
             }`}
           >
             <Home className="w-5 h-5" />
             <span className="text-xs">Home</span>
           </button>
           <button
-            onClick={() => setActiveTab('profile')}
+            onClick={() => {
+              setActiveTab('profile');
+              setCurrentScreen('profile');
+            }}
             className={`flex-1 py-3 px-4 flex flex-col items-center space-y-1 ${
-              activeTab === 'profile' ? 'text-blue-600' : 'text-gray-500'
+              activeTab === 'profile' ? 'bg-[#27AE60] text-white' : 'text-[#6B7280]'
             }`}
           >
             <User className="w-5 h-5" />
             <span className="text-xs">Profile</span>
           </button>
           <button
-            onClick={() => setActiveTab('settings')}
+            onClick={() => {
+              setActiveTab('sources');
+              setCurrentScreen('sources');
+            }}
             className={`flex-1 py-3 px-4 flex flex-col items-center space-y-1 ${
-              activeTab === 'settings' ? 'text-blue-600' : 'text-gray-500'
+              activeTab === 'sources' ? 'bg-[#27AE60] text-white' : 'text-[#6B7280]'
+            }`}
+          >
+            <Sources className="w-5 h-5" />
+            <span className="text-xs">Sources</span>
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab('settings');
+              setCurrentScreen('settings');
+            }}
+            className={`flex-1 py-3 px-4 flex flex-col items-center space-y-1 ${
+              activeTab === 'settings' ? 'bg-[#27AE60] text-white' : 'text-[#6B7280]'
             }`}
           >
             <Settings className="w-5 h-5" />
