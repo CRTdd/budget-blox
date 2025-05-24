@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Home, User, Settings, Sources } from "lucide-react";
+import { Home, User, Settings, Wallet } from "lucide-react";
 import HomeScreen from '../components/screens/HomeScreen';
 import ProfileScreen from '../components/screens/ProfileScreen';
 import SettingsScreen from '../components/screens/SettingsScreen';
@@ -74,7 +73,7 @@ const Index = () => {
               activeTab === 'sources' ? 'bg-[#27AE60] text-white' : 'text-[#6B7280]'
             }`}
           >
-            <Sources className="w-5 h-5" />
+            <Wallet className="w-5 h-5" />
             <span className="text-xs">Sources</span>
           </button>
           <button
